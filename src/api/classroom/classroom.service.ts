@@ -56,7 +56,7 @@ export class ClassroomService {
     body: UpdateClassroomDto,
     permissionCode: string,
   ): Promise<ClassRoom> => {
-    const classroom = await ClassRoom.findOne({ where: { id } });
+    const classroom = await ClassRoom.findOne({ where: { id, teacherId: user.userId } });
     if (!classroom) throw new App404Exception('id', { id });
 
     const isPermission = await PermissionHelper.isPermissionChange(user.userId, permissionCode);
